@@ -1,0 +1,33 @@
+# main に push すると、ツール一式を RenameTool.zip にまとめて Releases に出す。
+# サイトのダウンロードボタン(releases/latest/download/RenameTool.zip)は常に最新版を指す。
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip
+        run: |
+          mkdir RenameTool
+          cp RenameTool.ps1 RenameTool.bat Install-SendTo.bat README.txt RenameTool/
+          zip -r RenameTool.zip RenameTool
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v1.0.${{ github.run_number }}" RenameTool.zip \
+            --title "v1.0.${{ github.run_number }}" --notes "" --latest

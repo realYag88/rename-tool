@@ -155,7 +155,7 @@ $chkRecurse.Location = New-Object System.Drawing.Point(245, 15)
 $lblFilter = New-Label '拡張子:' 360 16
 $txtFilter = New-Object System.Windows.Forms.TextBox
 $txtFilter.SetBounds(410, 13, 90, 24)
-$lblFilterHint = New-Label '例 png,exr（空=全部）' 505 16
+$lblFilterHint = New-Label '例 png,exr' 505 16
 $lblFilterHint.ForeColor = [System.Drawing.Color]::Gray
 
 $btnUp     = New-Button '↑' 594 10 34 28 $TR
